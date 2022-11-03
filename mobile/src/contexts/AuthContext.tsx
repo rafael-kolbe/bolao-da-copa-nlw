@@ -1,4 +1,9 @@
 import { createContext, ReactNode } from 'react';
+import * as Google from 'expo-auth-session/providers/google';
+import * as AuthSession from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
+
+WebBrowser.maybeCompleteAuthSession();
 
 interface UserProps {
     name: string;
@@ -17,6 +22,12 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextDataProps);
 
 export function AuthContextProvider({ children }: AuthProviderProps) {
+    Google.useAuthRequest({
+        client: '',
+    });
+
+    console.log(AuthSession.makeRedirectUri({ useProxy: true }));
+
     async function signIn() {
         console.log('Vamos logar!');
     }
